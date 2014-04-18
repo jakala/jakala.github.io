@@ -306,6 +306,7 @@
 
 	.byline
 	{
+        width: 100%
 		display: block;
 		text-transform: uppercase;
 		font-weight: 700;
@@ -424,7 +425,6 @@
 			display: inline-block;
 			text-align: left;
 			margin: 0 auto;
-			white-space: nowrap;
 			left: 24px;
 		}
 
