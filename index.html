@@ -23,7 +23,13 @@
 		</noscript>
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
-		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+        <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+        <script>
+            $(function(){
+                $("#menu").load("menu.html");               
+            });
+
+        </script>
 	</head>
 	<body class="homepage">
 
@@ -31,16 +37,8 @@
 			<div id="header-wrapper">
 				<div class="container">
 					<div class="row">
-						<div class="12u">
-						
-                            <!-- Header -->
-                            <!--[if IE]>
-                            <object classid="clsid:25336920-03F9-11CF-8FD0-00AA00686F13" data="menu.html"></object>
-                            <![endif]-->
-                            
-                            <!--[if !IE]> <-->
-                            <object type="text/html" data="menu.html"></object>
-                            <!--> <![endif]-->
+                        <div class="12u">
+                            <div id="menu"></div>
 							<!-- Banner -->
 								<div id="banner">
 									<h2><strong>ZeroFour:</strong> A free responsive site template<br />
