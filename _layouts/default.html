@@ -1,143 +1,49 @@
-<!DOCTYPE HTML>
-<!--
-	ZeroFour 2.5 by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
 <head>
-    <title>Proyectos de Jakala</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800" rel="stylesheet" type="text/css" />
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.dropotron.min.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/skel.min.js"></script>
-    <script src="js/skel-panels.min.js"></script>
-    <noscript>
-        <link rel="stylesheet" href="css/skel-noscript.css" />
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/style-desktop.css" />
-    </noscript>
-    <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
-    <!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
-    <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    {% seo %}
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="{{ '/assets/js/respond.js' | relative_url }}"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="{{ '/assets/css/ie.css' | relative_url }}">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
 </head>
-<body class="homepage">
+<body>
+<div id="header">
+    <nav>
+        <li class="title right"><a href="{{ site.url }}">{{ site.title | default: site.github.repository_name }}</a></li>
+        {% include menu.html %}
+    </nav>
+</div><!-- end header -->
+<div class="wrapper">
 
-<!-- Header Wrapper -->
-<div id="header-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="12u">
-                {% include menu.html %}
-                <!-- Banner -->
-                <div id="banner">
-                    <h2>Proyectos web, electrónica, servidores, virtualización</h2>
-                    <a href="#" class="button big fa fa-check-circle">Haz click aqui</a>
-                </div>
-
-            </div>
+    <section>
+        <div id="title">
+            <h1><a href="{{ site.url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
+            <p>{{ site.description | default: site.github.project_tagline }}</p>
+            <hr>
+            <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
+            <span class="credits right">Hosted on GitHub Pages &mdash; Theme based on one by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
-    </div>
+        <section id="tags">
+            {% include archive.html %}
+        </section>
+
+        {{ content }}
+
+    </section>
+
 </div>
 
-<!-- Main Wrapper -->
-<div id="main-wrapper">
-    <div class="main-wrapper-style1">
-        <div class="inner">
-
-            <!-- Feature 1 -->
-            <section class="container box-feature1">
-                <div class="row">
-                    <div class="12u">
-                        <header class="first major">
-                            <h2>Proyectos actuales </h2>
-                            <span class="byline">En el tiempo libre se puede hacer de todo... solo hace falta un poco de inspiración y  <strong>ponerse a ello</strong></span>
-                        </header>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="4u">
-                        <section>
-                            <span class="image image-full"><img src="images/tomatera.jpg" alt="" /></span>
-                            <header class="second fa fa-user">
-                                <h3>plantando tomates...</h3>
-                                <span class="byline">Un pequeño proyecto de plantación de tomates en la ventana de la casa.</span>
-                            </header>
-                        </section>
-                    </div>
-                    <div class="4u">
-                        <section>
-                            <span class="image image-full"><img src="images/pic02.jpg" alt="" /></span>
-                            <header class="second fa fa-cog">
-                                <h3>Aplicación web con Sonata</h3>
-                                <span class="byline">Uso de SonataAdminBundle para las aplicaciones symfony2</span>
-                            </header>
-                        </section>
-                    </div>
-                    <div class="4u">
-                        <section>
-                            <span class="image image-full"><img src="images/pic03.jpg" alt="" /></span>
-                            <header class="second fa fa-bar-chart-o">
-                                <h3>Insoladora de LEDs</h3>
-                                <span class="byline">Para construir pequeños circuitos electrónicos</span>
-                            </header>
-                        </section>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </div>
-    <div class="main-wrapper-style2">
-        <div class="inner">
-
-            <!-- Feature 2 -->
-            <section class="container box-feature2">
-                <div class="row">
-                    <div class="6u">
-                        <section>
-                            <header class="major">
-                                <h2>And this is a subheading</h2>
-                                <span class="byline">It’s important but clearly not *that* important</span>
-                            </header>
-                            <p>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus.
-                                Praesent semper mod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat.
-                                Aliquam luctus et mattis lectus sit amet pulvinar. Nam turpis nisi
-                                consequat etiam.</p>
-                            <footer>
-                                <a href="#" class="button medium fa fa-arrow-circle-o-right">Let's do this</a>
-                            </footer>
-                        </section>
-                    </div>
-                    <div class="6u">
-                        <section>
-                            <header class="major">
-                                <h2>This is also a subheading</h2>
-                                <span class="byline">And is as less important as the other one</span>
-                            </header>
-                            <p>Phasellus quam turpis, feugiat sit amet ornare in, hendrerit in lectus.
-                                Praesent semper mod quis eget mi. Etiam eu ante risus. Aliquam erat volutpat.
-                                Aliquam luctus et mattis lectus sit amet pulvinar. Nam turpis nisi
-                                consequat etiam.</p>
-                            <footer>
-                                <a href="#" class="button medium alt fa fa-info-circle">Wait, what?</a>
-                            </footer>
-                        </section>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </div>
-</div>
-
-{{ content }}
-
-<!-- Footer Wrapper -->
-<div id="footer-wrapper"></div>
 </body>
 </html>
