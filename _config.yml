@@ -3,7 +3,7 @@
 #
 
 # Name of your site (displayed in the header)
-title: Las cosas de Angel
+title: Las cosas de Jakala
 
 # Short bio or description (displayed in the header)
 description: Blog personal, en el que hablo de cosas relacionadas con programacion (normalmente).
@@ -17,15 +17,14 @@ avatar: https://avatars.githubusercontent.com/u/1677967?s=400&v=4
 
 # Includes an icon in the footer for each username you enter
 footerlinks:
-  email: angel.cid@gmail.com
+  email: jakala_gsp@hotmail.com
   github: jakala
-  linkedin: angel.cid@linkedin.com
   rss: no
   twitter: jakala_gsp
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
-disqus: las-cosas-de-angel
+disqus: las-cosas-de-jakala
 
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
 google_analytics:
