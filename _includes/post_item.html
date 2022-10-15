@@ -1,0 +1,14 @@
+<section class="6u">
+    <div class="box post">
+        {% if post.featured %}
+        <a href="#" class="image left"><img src="{{ site.baseurl }}{{post.featured}}" alt="" /></a>
+        {% endif %}
+        <div class="inner">
+            <h3>{{ post.title }}</h3>
+            {{ post.excerpt }}
+            <footer>
+                <a href="{{ site.baseurl }}{{ post.url }}" class="button">Continuar</a>
+            </footer>
+        </div>
+    </div>
+</section>

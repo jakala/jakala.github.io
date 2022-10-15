@@ -1,13 +1,15 @@
 ---
+title: inicio
 layout: default
 ---
+			
+<!-- Banner -->
+{% include banner.html %}
+<!-- Highlights -->
+{% include highlights.html %}
+<!-- Gigantic Heading -->
+{% include giganticheading.html %}
+<!-- Posts -->
+{% include lastfourpost.html %}
 
-
-<ul>
-    {% for post in site.posts %}
-    <li>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-        {{ post.excerpt }}
-    </li>
-    {% endfor %}
-</ul>
+{% include cta.html %}

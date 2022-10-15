@@ -7,3 +7,5 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'github-pages'
 gem 'webrick'
 gem 'jekyll-remote-theme'
+gem 'jekyll-paginate'
+gem 'jemoji'

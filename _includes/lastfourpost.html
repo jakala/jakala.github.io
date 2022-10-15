@@ -1,0 +1,18 @@
+<section class="wrapper style1">
+    <div class="container">
+        <div class="row">
+            <section class="12u">
+                <header class="major">
+            {% if site.posts.size > 0 %}
+            <h2>Ultimos posts</h2>
+            {% else %}
+            <h2>Próximamente encontrarás los últimos posts aqui.</h2>
+            {% endif %}
+            {% for post in site.posts offset: 0 limit: 4 %}
+            {% include post_item.html %}
+            {% endfor %}
+                </header>
+            </section>
+        </div>
+    </div>
+</section>

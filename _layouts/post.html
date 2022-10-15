@@ -1,0 +1,22 @@
+---
+layout: blog
+---
+
+<section class="wrapper style1">
+	<div class="container">
+		<section>
+			<header class="major">
+				<h2>{{ page.title }}</h2>
+			</header>
+			<div class="row">
+				<div class="8u -2u">
+					<section class="box">
+						<a href="#" class="image left"><img src="{{ site.baseurl }}{{ page.featured }}" alt="" /></a>
+						{{ page.content }}
+					</section>
+					<p>Publicado el {{ page.date | date: "%d-%m-%Y" }}</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
