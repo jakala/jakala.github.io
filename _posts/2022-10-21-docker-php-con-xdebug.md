@@ -8,7 +8,7 @@ excerpt_separator: <!--more-->
 Xdebug siempre ha sido una de mis debilidades en cuanto a mi desarrollo del dia a dia como programador.
 Porque, seamos claros por una vez: ¿quien no prefiere usar un dump o un die en su codigo php? <!--more-->
 
-quien responda "yo prefiero xdebug" MIENTE ::smile::
+quien responda "yo prefiero xdebug" MIENTE :smile:
 
 Está claro, que siempre hay que ir aprendiendo en el dia a dia. Pero a veces no tenemos tiempo y tienes que 
 buscar una herramienta o un post de alguien que te diga como se resuelve algo, y ya. 
