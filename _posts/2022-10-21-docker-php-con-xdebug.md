@@ -1,6 +1,6 @@
 ---
 title: Docker con php y xdebug
-featured: 
+featured: /assets/images/docker.jpg
 layout: post
 excerpt_separator: <!--more-->
 ---
