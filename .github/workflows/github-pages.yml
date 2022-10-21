@@ -18,4 +18,4 @@ jobs:
       - uses: helaili/jekyll-action@v2.4    # Choose any one of the Jekyll Actions
         with:                              # Some relative inputs of your action
           token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: 'master'
+          target_branch: 'gh-pages'
