@@ -1,6 +1,6 @@
 ---
 title: Volviendo a Monkey Island
-featured:
+featured: /assets/images/monkeys.jpg
 layout: post
 excerpt_separator: <!--more-->
 ---
