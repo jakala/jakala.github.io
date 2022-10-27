@@ -5,12 +5,12 @@ layout: post
 excerpt_separator: <!--more-->
 ---
 
-La primera vez que he oido este termino ha sido ayer, comentado por un buen amigo que tambien es desarrollador. 
+La primera vez que he oído este término ha sido hace un par de dias, comentado por un buen amigo que también es desarrollador. 
 Pero expliquemos la historia...<!--more-->
 
-hace un par de dias recibi un mensaje de un buen amigo, indicandome que iba a quedar con gente a la que hacia tiempo que no veía.
-Y es que, desde el comienzo de la pandemia, muchos de los eventos LAN-Party a los que asistia, quedaron cerrados, y no he 
-vuelto a ver a esa gente desde entonces. (bueno, quizas un par de veces, pero ya no en ese entorno).
+Hace un par de dias recibí un mensaje de un buen amigo, indicándome que iba a quedar con gente a la que hacía tiempo que no veía.
+Y es que, desde el comienzo de la pandemia, muchos de los eventos LAN-Party a los que asistía, quedaron cerrados, y no he 
+vuelto a ver a esa gente desde entonces. (bueno, quizás un par de veces, pero ya no en ese entorno).
 
 Fue una tarde memorable, con risas, anécdotas, alguna que otra puya, chistes frikis... Vamos, todo eso que se echa de menos
 cuando dejas de ver a gente tan maja.
@@ -20,11 +20,11 @@ en ese momento, uno de los asistentes dijo la frase:
 
 >si, esos problemas PICNIC.
  
-Jamás había oido ese termino (en en ambito de programación). Me quedé con los ojos abiertos, de sorpresa. "¿a que se refiere uno
+Jamás había oído ese término (en el ámbito de programación). Me quedé con los ojos abiertos, de sorpresa. "¿a qué se refiere uno
 con un problema tipo 'PICNIC'?".
 
-Pero yo no era el único. El compañero que me habia mandado el mensaje para quedar, también estaba extrañado. Asi que no era yo
-el único que tenia esa duda existencial del significado de esa expresión.
+Pero yo no era el único. El compañero que me había mandado el mensaje para quedar, también estaba extrañado. Asi que no era yo
+el único que tenía esa duda existencial del significado de esa expresión.
 
 En fin, que ya en un momento de lucidez, y después del estupor de la sorpresa, nos decidimos a preguntarle qué significaba que fuera
 "un problema PICNIC"... La respuesta no se hizo esperar. Eran las siglas de la frase:
