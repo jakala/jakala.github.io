@@ -1,6 +1,6 @@
 ---
 title: Prueba de post automatico
-featured:
+featured: /assets/images/cron.jpg
 layout: post
 excerpt_separator: <!--more-->
 ---
