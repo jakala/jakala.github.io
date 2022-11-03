@@ -1,6 +1,6 @@
 ---
 title: El automático
-featured: /assets/images/cron.jpg
+featured: assets/images/elAutomatico.jpg
 layout: post
 excerpt_separator: <!--more-->
 ---
