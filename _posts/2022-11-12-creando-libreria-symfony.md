@@ -1,49 +1,78 @@
 ---
-title: DDD y el problema de los Value-Objects (2)
+title: Como crear una libreria symonfy
 layout: post
 excerpt_separator: <!--more-->
 ---
 
-Aplicando DDD podemos encontrarnos con un problema bastante tonto que puede traernos de cabeza: validar el request completo<!--more-->
+Encontré un manual para crear un repositorio-libreria de symfony<!--more-->
 
-El asunto del problema que presentaba en el post anterior, es un poco conflictivo.
+A raiz del tema de los valueObjects, me puse a mirar como podia crear una libreria para symfony. El repositorio de Seldaek
+donde implementa json-schema para php [justinrainbow/json-schema](https://github.com/justinrainbow/json-schema) define una
+clase que hay que instanciar para poder hacer la validación correspondiente.
 
-  - Por una parte, tiene todo el sentido que la lógica de validación de cada campo esté contemplada en el ValueObject correspondiente.
+He querido aportar mis dos cents añadiendo una libreria que publica un servicio en el contenedor de inyeccion de
+dependencias de symfony, basado en la libreria de json-schema. Podeis encontrarla en
+[jakala/json-schema-validator](https://github.com/jakala/JsonSchemaValidator).
 
-  - Por otro lado, esto nos dificulta devolver todos los errores en el controlador, pues en cuando ocurre uno, se para el proceso.
+## el archivo composer.json
+Aunque podeis encontrarlo en el repositorio, lo pongo aqui para comentar un par de cosas:
+```
+{
+    "name": "jakala/json-schema-validator",
+    "description": "Symfony service to use schema json validator",
+    "type": "symfony-bundle",
+    "autoload": {
+        "psr-4": {
+            "Jakala\\Validator\\": "src"
+        }
+    },
+    "require": {
+        "justinrainbow/json-schema": "^5.2"
+    },
+    "require-dev": {
+        "symfony/dependency-injection": "^6.1",
+        "symfony/config": "^6.1",
+        "symfony/http-kernel": "^6.1",
+        "symfony/yaml": "^6.1"
+    },
+    "authors": [
+        {
+            "name": "Angel Cid",
+            "email": "angel.cid@gmail.com"
+        }
+    ]
+}
+```
+Del composer.json hay que destacar dos cosas importantes:
 
-Asi pues, ¿como solucionamos esto?
+  - El `type` de la libreria debe ser **symfony-bundle**
+  - debeis añadir la parte de autoload con el nombre de vuestro namespace. En mi caso es `Jakala\Validator` y hace referencia
+a la carpeta `src`
+  - los vendor de la sección `require-dev` son importantes, pero deben estar en esta sección, ya que la aplicacion
+principal que utilice esta librería ya deberia tenerlos instalados.
 
-En mi opinión, el problema presentado NO existe. Es un problema más bien del punto de vista. 
+## Estructura de carpetas
+podemos crearla con:
 
-Y es que, el problema de devolver todos los parámetros que den error, ocurre porque hemos permitido "entrar" en nuestra aplicacion
-cierta información que NO es correcta. Es decir, en la parte de INFRAESTRUCTURA (nuestro controlador) dejamos que la petición tenga valores
-que no cumplen con lo esperado.
+    mkdir -p config src/DependencyInjection
 
-Es cierto que la validación la hemos puesto en el dominio, puesto que la especificidad del error tiende a ir hacia el dominio
-(lo cual es correcto). 
+y nos debe quedar una estructura como esta:
+```
+JsonSchemaValidator
+├─ config
+│  └─ services.yaml
+└─ src
+   ├─ JsonSchemaValidator.php
+   ├─ JsonSchemaValidatorBundle.php
+   └─ DependencyInjection
+     ├─ ConfigurationSchema.php
+     └─ JsonSchemaValidatorExtension.php
+```
+En mi caso solo tengo definida la clase `JsonSchemaValidator` para que quede definida como servicio. Pero aqui somos libres de
+añadir más archivos que ayuden a nuestro desarrollo.
 
-Desde mi punto de vista, los casos de uso (que se cubren en Aplicacion y Dominio), Deben tener sus propias validaciones. Y
-por su propio "peso", dichas logicas acaban en Dominio. 
 
-Sin embargo, el controlador (que recibe la petición) está "fuera" de dicho ámbito, y deberíamos "proteger" nuestros casos
-de uso de entradas "maliciosas". Y esa "protección" de datos maliciosos deberían tener su propia validación. En general, 
-la entrada será un Json, un Xml, un post de formulario...
 
-Esto, se suele conocer como PAYLOAD.
 
-Y en mi opinión, este payload deberia validarse en su capa correspondiente (Infraestructura). Si no es correcta, no pasa. Punto.
-
-## ¿y como validas en infraestructura?
-
-La forma más "correcta" que le veo a este tipo de problema, es aplicar una validación al request, para que cumpla el Payload.
-Normalmente, en las aplicaciones Symfony, obtenemos todos los datos como un objeto especifico de tipo **Request**. 
-
-Pero al final,
-tanto venga como Json, Xml, Post, o parametros... dichos datos se pueden pasar como un array. Con lo que podriamos utilizar 
-herramientas como [justinrainbow/json-schema](https://github.com/justinrainbow/json-schema), que nos provee de una clase 
-para validar dichos datos a través de un estandar json-schema.
-
-Estoy planteandome aplicar el validador anterior en el [esqueleto](https://github.com/jakala/symfony6-ddd-skeleton) de 
-symfony con DDD que tengo en mi repositorio github... (A ver como lo hago) 
+El manual en el que me he basado lo podeis encontrar en este [enlace](https://macrini.medium.com/how-to-create-service-bundles-for-a-symfony-application-f266ecf01fca).
 
