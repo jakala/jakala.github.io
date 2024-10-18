@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Jakala Adventure</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="/assets/css/ie/html5shiv.js"></script><![endif]-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.dropotron.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/skel-layers.min.js"></script>
+    <script src="/assets/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="/assets/css/skel.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/style-wide.css" />
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie/v8.css" /><![endif]-->
+</head>
+
+<body>
+    <div id="header">
+    <!-- Logo -->
+<h2><a href="/index.html" id="logo">Jakala <em>Adventure</em></a></h2>
+
+    <!-- Nav -->
+    <nav id="nav">
+    <ul>
+        
+        <li ><a href="/index.html">Inicio</a></li>
+        <li>
+        <li ><a href="/blog">Blog</a></li>
+        <li ><a href="/about">Sobre mi</a></li>
+<!--        <li ><a href="/left-sidebar.html">Left Sidebar</a></li>
+        <li ><a href="/right-sidebar.html">Right Sidebar</a></li>
+        <li ><a href="/two-sidebar.html">Two Sidebar</a></li>
+        <li ><a href="/no-sidebar.html">No Sidebar</a></li>
+-->
+    </ul>
+</nav>
+
+</div>
+
+    <section class="wrapper style1">
+	<div class="container">
+		<section>
+			<header class="major">
+				<h2>DDD y el problema de los Value-Objects (2)</h2>
+			</header>
+			<div class="row">
+				<div class="8u -2u">
+					<section class="box">
+						<a href="#" class="image left"><img src="" alt="" /></a>
+						<p>Aplicando DDD podemos encontrarnos con un problema bastante tonto que puede traernos de cabeza: validar el request completo<!--more--></p>
+
+<p>El asunto del problema que presentaba en el post anterior, es un poco conflictivo.</p>
+
+<ul>
+  <li>
+    <p>Por una parte, tiene todo el sentido que la lógica de validación de cada campo esté contemplada en el ValueObject correspondiente.</p>
+  </li>
+  <li>
+    <p>Por otro lado, esto nos dificulta devolver todos los errores en el controlador, pues en cuando ocurre uno, se para el proceso.</p>
+  </li>
+</ul>
+
+<p>Asi pues, ¿como solucionamos esto?</p>
+
+<p>En mi opinión, el problema presentado NO existe. Es un problema más bien del punto de vista.</p>
+
+<p>Y es que, el problema de devolver todos los parámetros que den error, ocurre porque hemos permitido “entrar” en nuestra aplicacion
+cierta información que NO es correcta. Es decir, en la parte de INFRAESTRUCTURA (nuestro controlador) dejamos que la petición tenga valores
+que no cumplen con lo esperado.</p>
+
+<p>Es cierto que la validación la hemos puesto en el dominio, puesto que la especificidad del error tiende a ir hacia el dominio
+(lo cual es correcto).</p>
+
+<p>Desde mi punto de vista, los casos de uso (que se cubren en Aplicacion y Dominio), Deben tener sus propias validaciones. Y
+por su propio “peso”, dichas logicas acaban en Dominio.</p>
+
+<p>Sin embargo, el controlador (que recibe la petición) está “fuera” de dicho ámbito, y deberíamos “proteger” nuestros casos
+de uso de entradas “maliciosas”. Y esa “protección” de datos maliciosos deberían tener su propia validación. En general, 
+la entrada será un Json, un Xml, un post de formulario…</p>
+
+<p>Esto, se suele conocer como PAYLOAD.</p>
+
+<p>Y en mi opinión, este payload deberia validarse en su capa correspondiente (Infraestructura). Si no es correcta, no pasa. Punto.</p>
+
+<h2 id="y-como-validas-en-infraestructura">¿y como validas en infraestructura?</h2>
+
+<p>La forma más “correcta” que le veo a este tipo de problema, es aplicar una validación al request, para que cumpla el Payload.
+Normalmente, en las aplicaciones Symfony, obtenemos todos los datos como un objeto especifico de tipo <strong>Request</strong>.</p>
+
+<p>Pero al final,
+tanto venga como Json, Xml, Post, o parametros… dichos datos se pueden pasar como un array. Con lo que podriamos utilizar 
+herramientas como <a href="https://github.com/justinrainbow/json-schema">justinrainbow/json-schema</a>, que nos provee de una clase 
+para validar dichos datos a través de un estandar json-schema.</p>
+
+<p>Estoy planteandome aplicar el validador anterior en el <a href="https://github.com/jakala/symfony6-ddd-skeleton">esqueleto</a> de 
+symfony con DDD que tengo en mi repositorio github… (A ver como lo hago)</p>
+
+
+					</section>
+					<p>Publicado el 08-11-2022</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+
+    <div id="footer">
+        <ul class="icons">
+    <li><a href="https://twitter.com/jakala_gsp" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="#" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://github.com/jakala" target="_blank" class="icon fa-github"><span class="label">GitHub</span></a></li>
+    <li><img src="https://raw.githubusercontent.com/jakala/profile-views-counter/master/svg/18893494/badge.svg">
+</li>
+</ul>
+
+        <section class="copyright">
+    <ul class="menu">
+        <li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+    </ul>
+</section>
+
+    </div>
+</body>
+</html>
