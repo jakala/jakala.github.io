@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Jakala Adventure</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="/assets/css/ie/html5shiv.js"></script><![endif]-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.dropotron.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/skel-layers.min.js"></script>
+    <script src="/assets/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="/assets/css/skel.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/style-wide.css" />
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie/v8.css" /><![endif]-->
+</head>
+
+<body>
+    <div id="header">
+    <!-- Logo -->
+<h2><a href="/index.html" id="logo">Jakala <em>Adventure</em></a></h2>
+
+    <!-- Nav -->
+    <nav id="nav">
+    <ul>
+        
+        <li ><a href="/index.html">Inicio</a></li>
+        <li>
+        <li ><a href="/blog">Blog</a></li>
+        <li ><a href="/about">Sobre mi</a></li>
+<!--        <li ><a href="/left-sidebar.html">Left Sidebar</a></li>
+        <li ><a href="/right-sidebar.html">Right Sidebar</a></li>
+        <li ><a href="/two-sidebar.html">Two Sidebar</a></li>
+        <li ><a href="/no-sidebar.html">No Sidebar</a></li>
+-->
+    </ul>
+</nav>
+
+</div>
+
+    <section class="wrapper style1">
+	<div class="container">
+		<section>
+			<header class="major">
+				<h2>Como crear una libreria symonfy</h2>
+			</header>
+			<div class="row">
+				<div class="8u -2u">
+					<section class="box">
+						<a href="#" class="image left"><img src="" alt="" /></a>
+						<p>Encontré un manual para crear un repositorio-libreria de symfony<!--more--></p>
+
+<p>A raiz del tema de los valueObjects, me puse a mirar como podia crear una libreria para symfony. El repositorio de Seldaek
+donde implementa json-schema para php <a href="https://github.com/justinrainbow/json-schema">justinrainbow/json-schema</a> define una
+clase que hay que instanciar para poder hacer la validación correspondiente.</p>
+
+<p>He querido aportar mis dos cents añadiendo una libreria que publica un servicio en el contenedor de inyeccion de
+dependencias de symfony, basado en la libreria de json-schema. Podeis encontrarla en
+<a href="https://github.com/jakala/JsonSchemaValidator">jakala/json-schema-validator</a>.</p>
+
+<h2 id="el-archivo-composerjson">el archivo composer.json</h2>
+<p>Aunque podeis encontrarlo en el repositorio, lo pongo aqui para comentar un par de cosas:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "name": "jakala/json-schema-validator",
+    "description": "Symfony service to use schema json validator",
+    "type": "symfony-bundle",
+    "autoload": {
+        "psr-4": {
+            "Jakala\\Validator\\": "src"
+        }
+    },
+    "require": {
+        "justinrainbow/json-schema": "^5.2"
+    },
+    "require-dev": {
+        "symfony/dependency-injection": "^6.1",
+        "symfony/config": "^6.1",
+        "symfony/http-kernel": "^6.1",
+        "symfony/yaml": "^6.1"
+    },
+    "authors": [
+        {
+            "name": "Angel Cid",
+            "email": "angel.cid@gmail.com"
+        }
+    ]
+}
+</code></pre></div></div>
+<p>Del composer.json hay que destacar dos cosas importantes:</p>
+
+<ul>
+  <li>El <code class="language-plaintext highlighter-rouge">type</code> de la libreria debe ser <strong>symfony-bundle</strong></li>
+  <li>debeis añadir la parte de autoload con el nombre de vuestro namespace. En mi caso es <code class="language-plaintext highlighter-rouge">Jakala\Validator</code> y hace referencia
+a la carpeta <code class="language-plaintext highlighter-rouge">src</code></li>
+  <li>los vendor de la sección <code class="language-plaintext highlighter-rouge">require-dev</code> son importantes, pero deben estar en esta sección, ya que la aplicacion
+principal que utilice esta librería ya deberia tenerlos instalados.</li>
+</ul>
+
+<h2 id="estructura-de-carpetas">Estructura de carpetas</h2>
+<p>podemos crearla con:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p config src/DependencyInjection
+</code></pre></div></div>
+
+<p>y nos debe quedar una estructura como esta:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JsonSchemaValidator
+├─ config
+│  └─ services.yaml
+└─ src
+   ├─ JsonSchemaValidator.php
+   ├─ JsonSchemaValidatorBundle.php
+   └─ DependencyInjection
+     ├─ ConfigurationSchema.php
+     └─ JsonSchemaValidatorExtension.php
+</code></pre></div></div>
+<p>En mi caso solo tengo definida la clase <code class="language-plaintext highlighter-rouge">JsonSchemaValidator</code> para que quede definida como servicio. Pero aqui somos libres de
+añadir más archivos que ayuden a nuestro desarrollo.</p>
+
+<p>El manual en el que me he basado lo podeis encontrar en este <a href="https://macrini.medium.com/how-to-create-service-bundles-for-a-symfony-application-f266ecf01fca">enlace</a>.</p>
+
+
+					</section>
+					<p>Publicado el 12-11-2022</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+
+    <div id="footer">
+        <ul class="icons">
+    <li><a href="https://twitter.com/jakala_gsp" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="#" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://github.com/jakala" target="_blank" class="icon fa-github"><span class="label">GitHub</span></a></li>
+    <li><img src="https://raw.githubusercontent.com/jakala/profile-views-counter/master/svg/18893494/badge.svg">
+</li>
+</ul>
+
+        <section class="copyright">
+    <ul class="menu">
+        <li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+    </ul>
+</section>
+
+    </div>
+</body>
+</html>
