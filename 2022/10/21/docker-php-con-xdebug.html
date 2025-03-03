@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Jakala Adventure</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="/assets/css/ie/html5shiv.js"></script><![endif]-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.dropotron.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/skel-layers.min.js"></script>
+    <script src="/assets/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="/assets/css/skel.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/style-wide.css" />
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie/v8.css" /><![endif]-->
+</head>
+
+<body>
+    <div id="header">
+    <!-- Logo -->
+<h2><a href="/index.html" id="logo">Jakala <em>Adventure</em></a></h2>
+
+    <!-- Nav -->
+    <nav id="nav">
+    <ul>
+        
+        <li><a href="/index.html">Inicio</a></li>
+        <li>
+        </li>
+<li><a href="/blog">Blog</a></li>
+        <li><a href="/about">Sobre mi</a></li>
+<!--        <li ><a href="/left-sidebar.html">Left Sidebar</a></li>
+        <li ><a href="/right-sidebar.html">Right Sidebar</a></li>
+        <li ><a href="/two-sidebar.html">Two Sidebar</a></li>
+        <li ><a href="/no-sidebar.html">No Sidebar</a></li>
+-->
+    </ul>
+</nav>
+
+</div>
+
+    <section class="wrapper style1">
+	<div class="container">
+		<section>
+			<header class="major">
+				<h2>Docker con php y xdebug</h2>
+			</header>
+			<div class="row">
+				<div class="8u -2u">
+					<section class="box">
+						<a href="#" class="image left"><img src="/assets/images/docker.jpg" alt=""></a>
+						<p>Xdebug siempre ha sido una de mis debilidades en cuanto a mi desarrollo del dia a dia como programador.
+Porque, seamos claros por una vez: ¿quien no prefiere usar un dump o un die en su codigo php? <!--more--></p>
+
+<p>quien responda “yo prefiero xdebug” MIENTE <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20"></p>
+
+<p>Está claro, que siempre hay que ir aprendiendo en el dia a dia. Pero a veces no tenemos tiempo y tienes que 
+buscar una herramienta o un post de alguien que te diga como se resuelve algo, y ya.</p>
+
+<p>O no consigues configurar tu editor para que funcione tal o cual herramienta de apoyo, y aunque tengas a gente
+a tu alrededor para ayudarte, puede ser (como mi caso) que trabajes con Linux y el resto del personal con Mac,
+y ahi tenemos ciertas discrepancias en las instalaciones y configuraciones de herramientas…</p>
+
+<p>Bueno, pues buscando la manera de instalar xdebug en un docker, me he encontrado con este <a href="https://www.youtube.com/watch?v=IwMYpr0I2m4">video</a>, 
+en el que Pau (muchas gracias por el video) explica de una manera muy sencilla como tener configurado el xdebug dentro de un docker.</p>
+
+<p>Puede que hasta aqui digas “vale, yo tambien he instalado X-debug en mis dockers, que merito tiene esto?”. Pues te invito a 
+ver su video, y verás por que.</p>
+
+<p>Si bien la solución es muy correcta, se ve que SIEMPRE instala en la imagen la extensión X-debug, con lo que, actives o desactives
+la variable de entorno, el xdebug esta ahi, ocupando “espacio”.</p>
+
+<p>Asi que poniendo mis 2 cents, yo me planteo el caso de la siguiente manera:</p>
+
+<h2 id="script-de-instalación-fuera-del-docker-en-un-fichero">Script de instalación fuera del docker, en un fichero</h2>
+<p>Esto es, todas las instrucciones del dockerfile que ejecutan instalacion y creacion de archivos, salen fuera a un archivo
+de instalacion. Voy a llamarlo <code class="language-plaintext highlighter-rouge">xdebug-enable.sh</code> y lo pongo en el raiz del proyecto.</p>
+
+<p>el contenido del archivo sera algo como:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/sh
+
+if [ $XDEBUG_ENABLED == 1 ]; then
+    apk update &amp;&amp; apk add php7-dev g++ make
+    pecl install xdebug &amp;&amp; docker-php-ext-enable xdebug
+    echo 'xdebug.remote_enable = ${XDEBUG_ENABLED}' &gt;&gt; /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    echo 'xdebug.remote_host = host.docker.internal' &gt;&gt; /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+fi
+</code></pre></div></div>
+
+<h2 id="2-dockerfile-copia-este-archivo-dentro-del-contenedor">2 Dockerfile copia este archivo dentro del contenedor</h2>
+<p>Ahora, el archivo Dockerfile tiene que copiar este archivo dentro del contenedor, para poder utilizarlo.
+Dentro del dockerfile ponemos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COPY ./xdebug-enable.sh /app/xdebug-enable.sh
+</code></pre></div></div>
+
+<h2 id="docker-compose-ejecuta-el-script">docker-compose ejecuta el script</h2>
+<p>por ultimo, el docker-compose del proyecto debe llamar a este archivo. Dado que tambien tendra definida la variable de 
+entorno, este script se ejecuta, pero no siempre instalará la extension.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>version: 3.7
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      - XDEBUG_ENABLED=${XDEBUG_ENABLED:-0}
+    command: /app/xdebug-enable.sh
+</code></pre></div></div>
+
+					</section>
+					<p>Publicado el 21-10-2022</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+
+    <div id="footer">
+        <ul class="icons">
+    <li><a href="https://twitter.com/jakala_gsp" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="#" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://github.com/jakala" target="_blank" class="icon fa-github"><span class="label">GitHub</span></a></li>
+    <li>
+<img src="https://raw.githubusercontent.com/jakala/profile-views-counter/master/svg/18893494/badge.svg">
+</li>
+</ul>
+
+        <section class="copyright">
+    <ul class="menu">
+        <li>© Untitled. All rights reserved</li>
+<li>Design: <a href="http://html5up.net">HTML5 UP</a>
+</li>
+    </ul>
+</section>
+
+    </div>
+</body>
+</html>

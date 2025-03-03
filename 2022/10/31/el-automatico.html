@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Jakala Adventure</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="/assets/css/ie/html5shiv.js"></script><![endif]-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.dropotron.min.js"></script>
+    <script src="/assets/js/skel.min.js"></script>
+    <script src="/assets/js/skel-layers.min.js"></script>
+    <script src="/assets/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="/assets/css/skel.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/style-wide.css" />
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie/v8.css" /><![endif]-->
+</head>
+
+<body>
+    <div id="header">
+    <!-- Logo -->
+<h2><a href="/index.html" id="logo">Jakala <em>Adventure</em></a></h2>
+
+    <!-- Nav -->
+    <nav id="nav">
+    <ul>
+        
+        <li ><a href="/index.html">Inicio</a></li>
+        <li>
+        <li ><a href="/blog">Blog</a></li>
+        <li ><a href="/about">Sobre mi</a></li>
+<!--        <li ><a href="/left-sidebar.html">Left Sidebar</a></li>
+        <li ><a href="/right-sidebar.html">Right Sidebar</a></li>
+        <li ><a href="/two-sidebar.html">Two Sidebar</a></li>
+        <li ><a href="/no-sidebar.html">No Sidebar</a></li>
+-->
+    </ul>
+</nav>
+
+</div>
+
+    <section class="wrapper style1">
+	<div class="container">
+		<section>
+			<header class="major">
+				<h2>El automático</h2>
+			</header>
+			<div class="row">
+				<div class="8u -2u">
+					<section class="box">
+						<a href="#" class="image left"><img src="/assets/images/elAutomatico.jpg" alt="" /></a>
+						<p>He estado experimentando con el despliegue automatico de github. Este es el resultado <!--more--></p>
+
+<p>Hace relativamente poco que he empezado con este blog. La idea de utilizar las páginas de github no es nueva, pero si el 
+diseño y el ir publicando posts cada cierto tiempo. Para ello estoy usando <a href="https://jekyllrb.com">Jekyll</a>, que es un 
+sistema de blog bastante sencillo.</p>
+
+<p>El tema es que este framework (si se puede llamar asi) genera una página web estática a partir de los datos que encuentra
+en la carpeta <strong>_posts</strong> (también los includes de assets y demás). Esto hace que lo que funciona realmente es la carpeta <strong>_site</strong>,
+y debe rehacerse cada vez que quieras publicar algo.</p>
+
+<p>Inicialmente, el sistema de github pages ya prepara una action para que, al subir a la rama master, se lance el “build” del 
+framework y se reconstruya la carpeta <strong>_site</strong>.</p>
+
+<p>Por otra parte, resulta que los post se deben indicar con la fecha de publicación, en formato <strong>YYYY-MM-DD-titulo-del-post</strong>.</p>
+
+<p>Y aqui llega el “problema”:</p>
+
+<p>Si quieres publicar un post para una fecha en concreto (el clásico ejemplo es un viaje o tu dia de cumpleaños) puedes indicar una fecha
+futura, e inicialmente hasta ese dia no se publica. Pero como hemos dicho antes, el build se encarga de crear esa carpeta estatica.
+Y esto hace que, si no se lanza el build de nuevo el dia de la publicación, dicho post no aparece.</p>
+
+<p>Vamos a ver, que todo esto es totalmente lógico. No es un “problema” como tal. Es, simplemente, que el sistema funciona asi.</p>
+
+<p>Y entonces, como podemos hacer que se lance el build el dia del post futuro?</p>
+
+<p>La solución es bastante sencilla, teniendo en cuenta que ya se lanza una acción en el evento “on Push” de una rama. Asi que
+si buscamos por internet, podemos ver distintas maneras de añadir un nuevo action para que se haga este build.</p>
+
+<p>En concreto, yo estoy usando esta action. El archivo os lo podeis bajar de <a href="https://raw.githubusercontent.com/jakala/jakala.github.io/master/.github/workflows/github-pages.yml">aqui</a>.</p>
+
+<p>Debeis ponerlo en la carpeta <strong>.github/workflows</strong> de vuestro proyecto.</p>
+
+<p>El contenido del archivo es:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name: Build and deploy Jekyll site to GitHub Pages
+
+on:
+  schedule:
+    - cron: "40 * * * *"
+    
+jobs:
+  github-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: $-gems-$
+          restore-keys: |
+            $-gems-
+      - uses: helaili/jekyll-action@v2.4    # Choose any one of the Jekyll Actions
+        with:                              # Some relative inputs of your action
+          token: $
+          target_branch: 'gh-pages'
+</code></pre></div></div>
+
+<p>Lo importante de este action es que se lanza desde un schedule (lo que normalmente se indica con un cron). En mi caso,
+lo tengo puesto para que se lance a cada hora, a los 40 min. Lo he puesto asi porque te indican en algunos sitios que puede
+haber retraso de despliegue (hay muchos proyectos en github, y supongo que se comparten muchos cron). He estado haciendo
+experimentos y en mi caso es la mejor hora para lanzar el despliegue.</p>
+
+<p>Lo suyo sería ponerlo únicamente una vez al dia. Pero dado que podría ser que no se lance, me he decidido por esta opción.
+Más adelante iré mirando si puedo bajarlo de ratio, porque con que se lance una vez al dia (o como mucho 2) debería estar 
+resuelto el problema.</p>
+
+
+					</section>
+					<p>Publicado el 31-10-2022</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+
+    <div id="footer">
+        <ul class="icons">
+    <li><a href="https://twitter.com/jakala_gsp" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+    <li><a href="#" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+    <li><a href="https://github.com/jakala" target="_blank" class="icon fa-github"><span class="label">GitHub</span></a></li>
+    <li><img src="https://raw.githubusercontent.com/jakala/profile-views-counter/master/svg/18893494/badge.svg">
+</li>
+</ul>
+
+        <section class="copyright">
+    <ul class="menu">
+        <li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+    </ul>
+</section>
+
+    </div>
+</body>
+</html>
